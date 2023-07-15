@@ -1,0 +1,41 @@
+local scriptAtivado = false
+
+local function pressionarTeclas()
+  game:GetService("GuiService"):SendKeyEvent(true, Enum.KeyCode.Escape, false, game)
+  wait(0.1)
+  game:GetService("GuiService"):SendKeyEvent(true, Enum.KeyCode.R, false, game)
+  wait(0.1)
+  game:GetService("GuiService"):SendKeyEvent(false, Enum.KeyCode.R, false, game)
+  wait(0.1)
+  game:GetService("GuiService"):SendKeyEvent(true, Enum.KeyCode.Return, false, game)
+  wait(0.1)
+  game:GetService("GuiService"):SendKeyEvent(false, Enum.KeyCode.Escape, false, game)
+  wait(0.1)
+  game:GetService("GuiService"):SendKeyEvent(false, Enum.KeyCode.Return, false, game)
+end
+
+local tela = Instance.new("ScreenGui")
+local botao = Instance.new("TextButton")
+tela.Name = "ScriptInterface"
+tela.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+botao.Name = "AtivarDesativarBotao"
+botao.Size = UDim2.new(0, 200, 0, 50)
+botao.Position = UDim2.new(0.5, -100, 0.5, -25)
+botao.Text = "Ativar"
+botao.Parent = tela
+
+local function botaoClicado()
+  scriptAtivado = not scriptAtivado
+  if scriptAtivado then
+    botao.Text = "Desativar"
+    -- Inicia o loop do script
+    while scriptAtivado do
+      pressionarTeclas()
+      wait(3)
+    end
+  else
+    botao.Text = "Ativar"
+  end
+end
+
+botao.MouseButton1Click:Connect(botaoClicado)
